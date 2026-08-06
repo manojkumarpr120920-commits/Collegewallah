@@ -1,0 +1,68 @@
+import java.util.Scanner;
+
+public class RangeQueryOneBased {
+
+    // Function to create Prefix Sum Array (1-Based Indexing)
+    static int[] makePrefixSumArray(int[] arr, int n) {
+
+        int[] prefSum = new int[n + 1];
+
+        prefSum[0] = 0;
+
+        for (int i = 1; i <= n; i++) {
+            prefSum[i] = prefSum[i - 1] + arr[i];
+        }
+
+        return prefSum;
+    }
+
+    // Function to print array
+    static void printArray(int[] arr, int n) {
+
+        for (int i = 1; i <= n; i++) {
+            System.out.print(arr[i] + " ");
+        }
+
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter array size: ");
+        int n = sc.nextInt();
+
+        int[] arr = new int[n + 1];
+
+        System.out.println("Enter array elements:");
+
+        // Input starts from index 1
+        for (int i = 1; i <= n; i++) {
+            arr[i] = sc.nextInt();
+        }
+
+        int[] prefSum = makePrefixSumArray(arr, n);
+
+        System.out.println("Prefix Sum Array:");
+        printArray(prefSum, n);
+
+        System.out.print("Enter number of queries: ");
+        int q = sc.nextInt();
+
+        while (q-- > 0) {
+
+            System.out.println("Enter range (l r):");
+
+            int l = sc.nextInt();
+            int r = sc.nextInt();
+
+            // Range Sum Formula for 1-Based Indexing
+            int ans = prefSum[r] - prefSum[l - 1];
+
+            System.out.println("Sum = " + ans);
+        }
+
+        sc.close();
+    }
+}
